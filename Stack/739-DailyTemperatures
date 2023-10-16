@@ -1,0 +1,43 @@
+def dailyTemperatures(temperatures):
+    n = len(temperatures)
+    stack = []
+    output = [0] * n
+
+    for index, temp in enumerate(temperatures):
+        while stack and temp > stack[-1][0]:
+            stackT, stackInd = stack.pop()
+            output[stackInd] = (index - stackInd)
+        stack.append([temp, index])
+    return output
+
+def main():
+# Call the function you want to run
+    input = temperatures = [73,74,75,71,69,72,76,73]
+    # Output: [1,1,4,2,1,1,0,0]
+    print(dailyTemperatures(input))
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
+
+
+
+"""
+Solution Summary:
+    We can solve this problem in two different ways the first is the brute force approach 
+    which is iterating over each value in our input and looping over the rest of the elements 
+    EVERY time to look for a larger value and calculating the difference in the indxies.
+    This solution would run in O(n^2) time which is not ideal.
+
+    Another way of solving this problem and is the prefered way is to use a stack specifically a monotomic stack 
+    this way we can have all of our elements in increasing order. 
+    For this problem we simply create an ouput array that will have "0's" as a default value.
+    Then we iterate over our input array and either store our tempeture and its index into our stack or we check if our 
+    current temeture is less than the tempeture at the top of our stack if so we calculate the differience in the indexies i.e
+    how many days it would take to get a hotter temp or if the value is less than the top of the stack we simply add it to our stack. 
+    By doing this we correctly calculate the number of days between hotter tempetures and store it in our output array. 
+    This algorithm runs in O(n) and is a preferred way of solving it. 
+
+        Time Complexity: O(n)
+        Space Complexity: O(n)
+"""
