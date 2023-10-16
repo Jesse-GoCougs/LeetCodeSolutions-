@@ -1,0 +1,61 @@
+def isPalindrome(s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        #get rid of any non alpa numeric characters and whitespace then conver all of them to lowercase 
+        strs = re.sub(r'[^a-zA-Z\d]', '', s)
+        strs = strs.lower()
+      
+
+        # check if our string is a pallindrome with our 2 pointer approach 
+        left = 0 
+        right = len(strs)-1
+        while left < right:
+            if strs[left] != strs[right]:
+                return False
+            left += 1
+            right -= 1
+        
+        return True
+
+
+def main():
+# Call the function you want to run
+# Example 1:
+
+# Input: s = "A man, a plan, a canal: Panama"
+# Output: true
+# Explanation: "amanaplanacanalpanama" is a palindrome.
+# Example 2:
+
+# Input: s = "race a car"
+# Output: false
+# Explanation: "raceacar" is not a palindrome.
+# Example 3:
+
+# Input: s = " "
+# Output: true
+# Explanation: s is an empty string "" after removing non-alphanumeric characters.
+# Since an empty string reads the same forward and backward, it is a palindrome.
+
+    Input = "A man, a plan, a canal: Panama"
+    Input2 = "race a car"
+    isPalindrome(Input)
+    isPalindrome(Input2)
+
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
+
+"""
+Solution Summary:
+    We can appraoch this problem by applying the 2 pointer algorithm technique. Our end goal is to determine if the input string provided to us 
+    is a valid palindrome i.e reads the same foward and backwards. So we can have 2 pointers left and right to travers the string we increase or decrease our pointers
+    comparing thier values if at any time they contain different valeus we stop and return false. Otherwise we can keep moving our pointers while left < right. 
+    If we reach the end of our loop then the string is a valid palindrome and we return True. 
+
+    Time Complexity: O(n)
+    Space Complexity: O(1)
+"""
