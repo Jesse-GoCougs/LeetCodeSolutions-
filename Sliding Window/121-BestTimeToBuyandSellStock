@@ -1,0 +1,38 @@
+
+def maxProfit(prices):
+    """
+    :type prices: List[int]
+    :rtype: int
+    """
+    maxProfit = 0
+    minStock = prices[0]
+
+    for price in prices:
+        if price > minStock:
+            profit = price - minStock
+            maxProfit = max(maxProfit, profit)
+        if price < minStock:
+            minStock = price
+    return maxProfit 
+
+
+def main():
+    prices = [7,1,5,3,6,4]
+# Call the function you want to run
+    print(maxProfit(prices))
+
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
+
+
+
+"""
+Solution Summary:
+We can solve this problem by using the sliding window technique. In this particular example the sliding window technique is 
+not as difficult to apply. We want to calculate the best time we can buy a stock and sell it in the future so we wont be lookin back at previous 
+stock prices only future prices for each current stock as we iterate over our input array. the way we can do this is by keeping track of the minimum stock price as we traverse the array
+at each iteration over array we check if the current element is smaller than our minimum stock price if so we update our minimum and continue our loop. 
+Otherwise we calculate our profit and keep track of our maxprofit by storing a profit varibale that we will update to be the max each time we calculate a profit
+"""

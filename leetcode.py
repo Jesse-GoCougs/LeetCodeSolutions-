@@ -65,3 +65,23 @@ def main():
 # Execute the main function
 if __name__ == "__main__":
     main()
+
+
+# #template Code 
+
+
+# def main():
+# # Call the function you want to run
+#     print()
+
+
+# # Execute the main function
+# if __name__ == "__main__":
+#     main()
+
+
+
+# """
+# Solution Summary:
+
+# """
