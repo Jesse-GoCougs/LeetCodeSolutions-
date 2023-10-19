@@ -1,0 +1,37 @@
+def containsDuplicate(nums):
+    """
+    :type nums: List[int]
+    :rtype: bool
+    """
+    count = set()
+
+    for item in nums:
+        if item in count:
+            return True
+        count.add(item)
+    return False 
+
+
+def main():
+# Call the function you want to run
+    nums = [1,2,3,1]
+    # Output: true
+    print(containsDuplicate(nums))
+
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
+
+
+
+"""
+Solution Summary:
+    This problem is fairly straight forward if we use our data structures apporpitely. In this case we want to return "True"
+    if any value appears twice in our input array False otherwise. We can use a dictionary or a counter since we are keeping track of the 
+    frequency of the characters in our string but since we ideally only want to check for any duplicate values we can instead use a 
+    set that has a property of only storing unique values. So we can use this to check for any duplciates and return false or true depending. 
+
+    Time Complexity: O(n)
+    Space Complexity: O(n) at worst case we will have n elements stored 
+"""
