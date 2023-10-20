@@ -1,3 +1,5 @@
+import re
+
 def isPalindrome(s):
         """
         :type s: str
@@ -41,8 +43,8 @@ def main():
 
     Input = "A man, a plan, a canal: Panama"
     Input2 = "race a car"
-    isPalindrome(Input)
-    isPalindrome(Input2)
+    print(isPalindrome(Input))
+    print(isPalindrome(Input2))
 
 
 # Execute the main function
