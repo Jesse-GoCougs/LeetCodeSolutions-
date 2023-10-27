@@ -6,7 +6,7 @@ def maxSlidingWindow(nums, k):
         :rtype: List[int]
         """
         output = []
-        q = deque() #index
+        q = deque() #index5
         left = 0
         right =0
         while right < len(nums):
