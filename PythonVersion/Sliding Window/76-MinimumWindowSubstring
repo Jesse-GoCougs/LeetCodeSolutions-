@@ -1,0 +1,60 @@
+def minWindow(s, t):
+        if t == "":
+            return ""
+
+        countT, window = {}, {}
+        for c in t:
+            countT[c] = 1 + countT.get(c, 0)
+
+        have, need = 0, len(countT)
+        res, resLen = [-1, -1], float("infinity")
+        l = 0
+        for r in range(len(s)):
+            c = s[r]
+            window[c] = 1 + window.get(c, 0)
+
+            if c in countT and window[c] == countT[c]:
+                have += 1
+
+            while have == need:
+                # update our result
+                if (r - l + 1) < resLen:
+                    res = [l, r]
+                    resLen = r - l + 1
+                # pop from the left of our window
+                window[s[l]] -= 1
+                if s[l] in countT and window[s[l]] < countT[s[l]]:
+                    have -= 1
+                l += 1
+        l, r = res
+        return s[l : r + 1] if resLen != float("infinity") else ""
+
+def main():
+# Call the function you want to run
+    s = "ADOBECODEBANC"
+    t = "ABC"
+    print("output: ", minWindow(s, t))
+
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
+
+
+
+"""
+Solution Summary:
+    For this problem we want to be able to check if there is a substring in string s that contains all characters in t (duplicates included). If there is more than one substring we want to find the minimum substring and return it.
+    The way we can do this is by using two different dictionaries one will store the freqeuency of all chars in t and the other will contain the frequenecy of the all chars from our window in s. 
+    We will iterate over s using the sliding window technique, we will keep track of our window using two pointers. We will increase the window size (move our right pointer) until we find a valid substring containing all chars (incllude dup)
+    A valid substring is a srting the matches all char counts in both dictinoaries. After we find a valid substring we run a second loop that will decrease our window from the left until our string in invalid. 
+    We keep doing this until our right pointer reaches the end of our string or we can longer form a valid substring using our 2 pointers. 
+
+
+
+    Time complexity: This solution runs in O(n) time since only need to iterate over our string one time. 
+    Space complexity: O(n) since at any time we will have O(n) space being used at most. 
+
+
+
+"""

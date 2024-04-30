@@ -1,0 +1,62 @@
+from collections import Counter
+def checkInclusion(s1, s2):
+    """
+    :type s1: str
+    :type s2: str
+    :rtype: bool
+    """
+    #length of s1 and s2 
+    s1_len, s2_len = len(s1), len(s2)
+
+    # we create counter for both strings of window size s1_len
+    s1_counter = Counter(s1)
+    s2_counter = Counter(s2[:s1_len])
+
+    #iterate over remaining characters of s2 
+    for i in range(s1_len, s2_len):
+        #return true if s1 is a permutation of window size for s2 
+        if s1_counter == s2_counter:
+            return True
+        
+        #slide the window over by one and remove the previous value and add current character
+        s2_counter[s2[i-s1_len]] -= 1
+        if s2_counter[s2[i-s1_len]] == 0:
+            del s2_counter[s2[i-s1_len]]
+        s2_counter[s2[i]] += 1
+    #finally we compare both counters and check for equality if so return True/ False otherwise 
+    return s1_counter == s2_counter
+
+
+def main():
+# Call the function you want to run
+    test1 = "hello"
+    test2= "ooolleoooleh"
+    print("output: ", checkInclusion(test1, test2))
+
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
+
+"""
+Solution Summary:
+    Note:   For this problem we want to check if s2 contains a sustring that is a permutation of s1. 
+    I initially thought of using 2 seperate dictionaries and iterate over our s2 while performing a sliding window teqnique to check for 
+    the frequency of characters and return True if at any point we have len(s1) matches between the 2 different dictinaries. 
+    Although this teqnique certainly works we can simplify our code by using the Counter object provided by the collections library. 
+    -----------------------------------------------------------------------------------------------------------------------------------
+    
+    The above code we import the Counter object and initialize it with all of s1 and len(s1) for s2 for the second Counter object. 
+    then we simply perform a sliding window teqnique over the rest of s2 and at each pointer compare both of the Counter objects for equality. 
+    We also need to make sure that when we are sliding over s2 we update out s2Counter and decrease or remove previous items. 
+    By using the Counter object it makes this problem alot easier. 
+
+    Time complexity: O(n)
+    Space complexity: O(n)
+
+
+
+
+
+
+"""

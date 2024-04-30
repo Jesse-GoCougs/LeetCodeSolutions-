@@ -1,0 +1,39 @@
+def reverseVowels(s):
+    """
+    :type s: str
+    :rtype: str
+    """
+    output = list(s)
+    left = 0
+    right = len(s)-1
+    table = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+
+    while left < right:
+        if s[left] in table and s[right] in table:
+            temp = s[left]
+            output[left] = output[right]
+            output[right] = temp
+            left +=1
+            right -= 1
+        elif s[left] in table:
+            right -= 1
+        else:
+            left += 1
+    return ''.join(output)
+
+def main():
+# Call the function you want to run
+    s = "hello"
+    print(reverseVowels(s))
+
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
+
+
+
+"""
+Solution Summary:
+
+"""

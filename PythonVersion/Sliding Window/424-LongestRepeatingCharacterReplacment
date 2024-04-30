@@ -1,0 +1,50 @@
+def characterReplacement(s, k):
+    """
+    :type s: str
+    :type k: int
+    :rtype: int
+    """
+    count = {}
+    longest = 0
+    left =0 
+
+    for right in range(len(s)):
+        count[s[right]] = 1 + count.get(s[right], 0)
+        longest = max(longest, count[s[right]])
+
+        if(right - left+1) - longest > k:
+            count[s[left]] -=1
+            left +=1
+    return right - left + 1
+
+def main():
+# Call the function you want to run
+    Input = "ABAB"
+    k = 2
+    # Output: 4
+    # Explanation: Replace the two 'A's with two 'B's or vice versa.
+    print(characterReplacement(Input, k))
+
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
+
+
+
+"""
+Solution Summary:
+
+    We can approach this problem using a similar stradegy that we have used in the past. We will use a sliding window technique
+    and we will keep track of the frequency of characters in the substring using a dictionary. By doing so we can also know the amount of differnt types 
+    of characters we have in our substring. The way we can calculate the longest substring in which we can replace at most "K" elements
+    is by keeping track of the current maximum in our substring and using 2 pointers left which we initialze to 0 the be at the leftmost position in the string
+    and the right which we will adjust as we traverse the string. We can use the maximum frequenxy character count and the length of our substring to see how many 
+    replacements we need to do in order to have a string with only one character type. If we have length of 
+    substrign - maximumCount > k then we need to adjust our left pointer and remove the leftmost char in the dict  otherwise we only adjust our right pointer and add to our dictionary
+    In the end we simply return the length of our final substring which will be the longet substring with at most "k"
+    replacements needed. This algorithm runs in 
+    O(n) time Complexity 
+    O(1) space complexity  
+
+"""

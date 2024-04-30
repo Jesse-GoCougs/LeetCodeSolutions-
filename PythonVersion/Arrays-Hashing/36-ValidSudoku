@@ -1,0 +1,79 @@
+from collections import defaultdict
+def isValidSudoku(board):
+    """
+    :type board: List[List[str]]
+    :rtype: bool
+    """
+    columns = defaultdict(set)
+    rows = defaultdict(set)
+    sqaures = defaultdict(set)  # key (row/3, column/3)
+
+    for row in range(9):
+        for column in range(9):
+            cell = board[row][column]
+            if cell == ".": # if the cell is empty skip to next iteration
+                continue
+            if(
+                cell in rows[row]
+                or cell in columns[column]
+                or cell in sqaures[(row/3, column/3)] # we store it as a tuple because keys are immutable
+            ):
+                return False
+            #otherwise we simply add the cell to each of their respective dictionary sets
+            columns[column].add(cell)
+            rows[row].add(cell)
+            sqaures[(row//3, column//3)].add(cell)
+    return True
+
+def main():
+# Call the function you want to run
+    Inputboard = [["5","3",".",".","7",".",".",".","."]
+                ,["6",".",".","1","9","5",".",".","."]
+                ,[".","9","8",".",".",".",".","6","."]
+                ,["8",".",".",".","6",".",".",".","3"]
+                ,["4",".",".","8",".","3",".",".","1"]
+                ,["7",".",".",".","2",".",".",".","6"]
+                ,[".","6",".",".",".",".","2","8","."]
+                ,[".",".",".","4","1","9",".",".","5"]
+                ,[".",".",".",".","8",".",".","7","9"]]
+    print(isValidSudoku(Inputboard))
+
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
+
+
+
+"""
+Solution Summary:
+For this problem coming up with a solution is not as difficult if we follow the rules of sudoku to validate our input board we 
+need to check for 3 cases in order for an element on the board to be valid. 
+    1. The number can only appear once on the current row 
+    2. The number can only appear once to the current column 
+    3. The number can only appear once in the subsqaure of the board which would be 
+        3x3 in this case 
+If we check these cases for every non-empty cell on the board we can come up with a valid solution for us to validate the 
+non empty cell.
+
+The thing that makes it a bit difficult is translating these 3 cases into code. But we can use a few tricks to help make this easier 
+Above we solved the problem and we used a default dictionary to store the values in our case we used a set for ech of these cases. 
+
+Note: The reason we used a default dict for this question instead of a normal dictionary is becuase of the usefullness 
+that default dics give us. We are able to define a default value if the element we are lookin up does not yet exist as a value in our defualt dict. 
+In our case we defined 3 different default dics one for each of our cases above and we set it to each have an empty set if a value does not exist yet. 
+For example if we want to check if row "0" has a value in it and the row is not yet defined as a key our defualt dic will add 
+"0" as a key to our defeualt dic and give its value an empy set in this case. 
+We can do this for our 3x3 subgrid as well but this time for our key we will have a tuple value 
+(note this is still valid to have as a key since tuples are immutable).
+The other trick we used to be able to code our algorithm is using the fact that our input board will be of size 9x9
+so we can use python integer division for each row and column to be able to access the corisponding subgrid in our defualt dic
+
+
+After we use these 2 tricks to be able to write our code we can come up with the solution above that checks the 3 cases 
+for each non-empty cell on our grid and returns True if it succesfully iterates over our entire grid or False otherwise. 
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+"""

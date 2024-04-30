@@ -1,0 +1,68 @@
+def lengthOfLongestSubstring(s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        n = len(s)
+        if n<= 0: 
+            return 0
+
+        visited = {s[0]}
+        left, right, longest = 0,1,1
+    
+        while right < n:
+            #duplicate value adjust sliding window and update visisted set
+            if s[right] in visited:
+                #find the fist occurace of previous window element
+                previousIndex = s.find(s[right], left, right)
+
+                #compare length of currnent window to Longest and update 
+                longest = max(len(visited), longest)
+
+                #remove up to k (previoiusIndex) elements from visited 
+                while left < previousIndex:
+                    visited.remove(s[left])
+                    left += 1
+
+                #update the left to reflect changes 
+                left = previousIndex + 1
+
+            else: #current is not in the set so we can add to our visisted 
+                visited.add(s[right])
+            #always move our right pointer
+            right +=1
+        longest = max(len(visited), longest)
+        return longest 
+def main():
+# Call the function you want to run
+    s = "pwwkew"
+    #expected output = 3
+    print(lengthOfLongestSubstring(s))
+
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
+
+
+
+"""
+Solution Summary:
+    For this problem we want to come up with a solution to find the longest substring in our input string that has non-repeating characters
+    To achieve this we will need to keep a counter or dictionary to keep track of the current frequencies of our characters in the 
+    substring. Next, we will want to use a sliding window technique to update our substring as needed.
+    
+    Note: Remember that if a question states find the "minimum" or find the "longest" we will most 
+    likely want to use a form of sliding window technique to solve the question in an effienct manner.
+
+
+    For this particular problem we iterate over our string while keeping track that our current window does not contain any duplicates 
+    we can do this by using our dictionary and checking if the current character we are at is already in the dictionary.
+    If it is we have a duplicate value so we need to update our dictionary to reflect those changes. 
+    First we compare our longest varibale to update as needed if our substring is longer, then we find the index at which or previous duplicate value was located and remove all characters from the left up until the index of the first occurence of the 
+    duplicate value. We do this using 2 pointers to keep track of our current window aka the substring. 
+    This solution runs in O(n) time since we only need to travers the inout string linearly and we use O(n) memory 
+
+    Time Complexity:O(n)
+    Space Complexity: O(n)
+"""
