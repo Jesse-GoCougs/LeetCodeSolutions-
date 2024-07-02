@@ -4,17 +4,15 @@ def maxProfit(prices):
     :type prices: List[int]
     :rtype: int
     """
-    maxProfit = 0
-    minStock = prices[0]
+    left = prices[0]
+    profit = 0
 
-    for price in prices:
-        if price > minStock:
-            profit = price - minStock
-            maxProfit = max(maxProfit, profit)
-        if price < minStock:
-            minStock = price
-    return maxProfit 
-
+    for i in range(len(prices)):
+        if prices[i] < left:
+            left = prices[i]
+        else:
+            profit = max(profit, prices[i] - left)
+    return profit 
 
 def main():
     prices = [7,1,5,3,6,4]
