@@ -13,7 +13,8 @@ class Solution(object):
             left -=1
             
         return (right - left)
-
+    
+#solution 2 solve in the same way but only using one reverse loop also starting from the end 
 class Solution(object):
     def lengthOfLastWord(self, s):
         """
