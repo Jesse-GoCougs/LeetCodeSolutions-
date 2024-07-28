@@ -6,8 +6,8 @@ def isPalindrome(s):
         :rtype: bool
         """
         #get rid of any non alpa numeric characters and whitespace then conver all of them to lowercase 
-        strs = re.sub(r'[^a-zA-Z\d]', '', s)
-        strs = strs.lower()
+        # we can do this by using list comprehension 
+        strs = ''.join(char.lower() for char in s if char.isalnum())
       
 
         # check if our string is a pallindrome with our 2 pointer approach 
